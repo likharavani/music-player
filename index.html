@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="container">
+            <h3>Lotus lane</h3>
+            <h5>The loyalist</h5>
+            <div class="image">
+                <img src="1.jfif">
+            </div>
+            <audio src="1.mp3" controls=></audio>
+            <div class="icons">
+                <i class="fa fa-backward" id="prev" aria-hidden="true"></i>
+                <i class="fa fa-play round" id="play" aria-hidden="true"></i>
+                <i class="fa fa-forward" id="next" aria-hidden="true"></i>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const play = document.getElementById('play');
+        const img = document.querySelector('img');
+        const music = document.querySelector('audio');
+        const prev = document.getElementById('prev');
+        const next = document.getElementById('next');
+        const title = document.querySelector('h3');
+        const artist = document.querySelector('h5');
+
+        const songs = [{
+            name: "1",
+            title: "lotus lane",
+            artist: "loyalist",
+        },
+        {
+            name: "2",
+            title: "walking firiri",
+            artist: "gorkhali takma",
+        },
+        {
+            name: "3",
+            title: "sapperious",
+            artist: "aurora",
+        }]
+        let turn = false;
+
+        const pause_music = () => {
+            console.log("hello");
+            turn = false;
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+        };
+        const play_music = () => {
+            console.log("hello");
+            turn = true;
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+        };
+        play.addEventListener("click", () => {
+            turn ? pause_music() : play_music();
+        })
+
+        const loadsongs = (songs) => {
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = songs.name + ".mp3";
+            img.src = songs.name + ".jfif";
+
+        }
+        songindex=0;
+        const nextsong=()=>{
+            songindex=(songindex+1)%songs.length;
+            loadsongs(songs[songindex]);
+            play_music();
+        }
+        const prevsong=()=>{
+            songindex=(songindex-1+songs.length)%songs.length;
+            loadsongs(songs[songindex]);
+            play_music();
+        }
+        next.addEventListener("click",nextsong);
+        prev.addEventListener("click",prevsong);
+
+
+    </script>
+</body>
+
+</html>
